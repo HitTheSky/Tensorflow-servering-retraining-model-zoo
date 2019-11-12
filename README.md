@@ -51,13 +51,36 @@ or add the pycocotools path to  PYTHONPATH of ~/.bashrc file.
 ```
 
 ## 2. Re-train Coco dataset including Own Dataset. 
-You can choose which model to train your objection detection classifier on. This tutorial will use the Faster-RCNN-Inception-V2 model. [Download the model here.](http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz) Open the downloaded faster_rcnn_inception_v2_coco_2018_01_28.tar.gz file with a file archiver such as WinZip or 7-Zip and extract the faster_rcnn_inception_v2_coco_2018_01_28 folder
+You can choose which model to train your objection detection classifier on. This tutorial will use the Faster-RCNN-Inception-V2 model. [Download the model here.](http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz) Open the downloaded faster_rcnn_inception_v2_coco_2018_01_28.tar.gz file with a file archiver such as WinZip or 7-Zip and extract the faster_rcnn_inception_v2_coco_2018_01_28 folder. [See specific step](https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10)
 
+Anyway What you have to do for add dataset to existing dataset is that add a list of tfrecord both tfrecord files by coco and your own dataset in the config file like this: 
+<pre> 
+tf_record_input_reader {
+    input_path: [ "path_to_tfrecord_file_1", "path_to_tfrecord_file_2"]
+...
+}
+</pre>
+Also eval_input_reader can config same
+
+And then YOU CAN TRAIN DATASET WITH THE BOTH TRRECORD FILES!!
+Let you follow training steps typically. 
 
 
 ## 3. Export Non-frozen model for Tensorflow serving. 
+On my purpose i should apply this trained model to TFS(tensorflow serving). So i need to export those variables and model.pb 
+The way to export follow below step: (This make your trained data Non-frozen model.)
 
+1. Download the files on this page to your working place : 
+**exporter_serve.py, exporter_model.py**
 
+2. And modify exporter_model.py file corresponding your working path (ex: config file path, training data path.. ) 
 
+3. Run exporter_model.py code. 
+```
+python exporter_model.py
+```
 
+4. Finally you can get exported_model included Non-frozen data with variables and model.pb 
+
+Thanks.
 
